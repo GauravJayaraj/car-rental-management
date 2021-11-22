@@ -1,11 +1,18 @@
+{% load static %}
+
 <!DOCTYPE html>    
 <html>    
 <head>    
     <title>Signup Form</title>       
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_access/styles.css' %}">
+    
 </head>    
 <body>    
-    <h2>Signup Page</h2><br>    
-    <div class="signup">    
+    <div class="center-div">
+        <p id="signupname">Signup</p>
+    </div>
+  
+    <div class="signup" id="signupdiv">    
     <form id="signup" method="POST" action="">    
         <label><b>User Name     
         </b>    

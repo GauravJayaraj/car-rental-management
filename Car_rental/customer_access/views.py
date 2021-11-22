@@ -6,6 +6,7 @@ from django.urls import reverse
 import json
 import psycopg2
 import random
+from datetime import datetime
 
 class authentication():
 
@@ -20,7 +21,7 @@ class authentication():
             #form = Signup_form()
             #context = {'form' : form}
             context = {}
-            return render(request,'signup.html',context)
+            return render(request,'customer_access/signup.html',context)
 
         elif request.method == 'POST':
             try:
@@ -59,7 +60,8 @@ class authentication():
                 conn.commit()
                 cur.close()
                 conn.close()
-                return HttpResponse("Inserted Successfully")
+                #return HttpResponse("Inserted Successfully")
+                return redirect('/signin/')
             else:
                 cur.close()
                 conn.close()
@@ -75,12 +77,12 @@ class authentication():
 
                 phoneno = request.session['phoneno']
                 context = {'phoneno' : phoneno}
-                return render(request,'home.html',context)
+                return render(request,'customer_access/home.html',context)
 
             else:
                 print("Here")
                 print(kwargs)
-                return render(request,'signin.html',kwargs)
+                return render(request,'customer_access/signin.html',kwargs)
 
         elif request.method == 'POST':
             try:
@@ -111,7 +113,8 @@ class authentication():
     
                 cur.close()
                 conn.close()
-                return HttpResponse("Wrong username or password")
+                #return HttpResponse("Wrong username or password")
+                return redirect('/signin/')
             else:
                 cur.close()
                 conn.close()
@@ -123,7 +126,7 @@ class authentication():
     def logout(request):
         try:
             del request.session['phoneno']
-            return HttpResponse("<strong>Logged out Successfully.</strong>")
+            return redirect('/signin/')
         except:
             print("Logout not Work!!!")
             return HttpResponse("<strong>Failure in Logging out.</strong>")
@@ -138,7 +141,7 @@ class customer_view():
                 phoneno = request.session['phoneno']
                 context = {'phoneno' : phoneno}
 
-                return render(request,'home.html',context)
+                return render(request,'customer_access/home.html',context)
             else:
                 #context = {'error' : 'Sign In Please'}
                 return redirect('/signin/')
@@ -183,7 +186,7 @@ class customer_view():
                 cur.close()
                 conn.close()
 
-                return render(request,'reservation.html',context)
+                return render(request,'customer_access/reservation.html',context)
             else:
                 #context = {'error' : 'Sign In Please'}
                 #text = 'You must be signed in'
@@ -206,9 +209,17 @@ class customer_view():
                 e_r_d = fields[1].split('=')[1]
                 outlet_name = fields[2].split('=')[1]
                 print(outlet_name)
-                '''
+                 '''
                 v_t_d = request.POST.get('Veh_take_date')
                 e_r_d = request.POST.get('exp_ret_date')
+
+                print(request.POST.get('Veh_take_date'))
+                print(request.POST.get('exp_ret_date'))
+                
+
+                # v_t_d = datetime.strptime(request.POST.get('Veh_take_date'), '%D/%M/%Y')
+                # e_r_d = datetime.strptime(request.POST.get('exp_ret_date'), '%D/%M/%Y')
+
                 outlet_name = request.POST.get('outlet')
 
                 if(v_t_d and e_r_d and outlet_name):
@@ -228,7 +239,7 @@ class customer_view():
                     cur.close()
                     conn.close()
                     context = {'vehicle_list' : rows , 'v_t_d' : v_t_d , 'e_r_d' : e_r_d , 'outlet_name' : outlet}
-                    return render(request,'vehicle.html',context = context)
+                    return render(request,'customer_access/vehicle.html',context = context)
                     
                     #return HttpResponse("U gave values")
 
@@ -254,7 +265,10 @@ class customer_view():
 
                 v_t_d = request.POST.get('v_t_d')
                 e_r_d = request.POST.get('e_r_d')
+                
                 plate_no = request.POST.get('plate-no')
+                if(plate_no==None):
+                    return HttpResponse("not vehicle selected")
                 outlet = request.POST.get('outlet')
                 reservation_date = '2001-12-20'     # Should be date/time of taking reservation
                 reservation_status = 'inprogress'
@@ -319,7 +333,7 @@ class customer_view():
 
                 context = {'phoneno':phoneno , 'reservations' : rows}
 
-                return render(request,'view_reservations.html',context = context)
+                return render(request,'customer_access/view_reservations.html',context = context)
 
             else:
                 return HttpResponse("Sign in pls :(")
