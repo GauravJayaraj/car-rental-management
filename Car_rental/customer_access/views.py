@@ -1,3 +1,4 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt    # CSRF Token Ignore in post reqs
@@ -6,7 +7,7 @@ from django.urls import reverse
 import json
 import psycopg2
 import random
-from datetime import datetime
+from django.contrib import messages
 
 class authentication():
 
@@ -54,7 +55,10 @@ class authentication():
 
                 if row is not None:
                     print(row)
-                    return HttpResponse("User already exists with same Phone no")
+                   
+                    messages.info(request, 'User already exist!! please Signin')
+                    return HttpResponseRedirect('/signup')
+                    #return HttpResponse("<script>alert('User already exists with same Phone no'); window.location='/signup';</script>")
 
                 cur.execute("""INSERT INTO customer (username,password,phone_no) VALUES (%s,%s,%s);""",(username,password,phoneno,))
                 conn.commit()

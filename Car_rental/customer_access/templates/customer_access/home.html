@@ -1,26 +1,57 @@
-
 {% load static %}
 
-<p>Car Rental Management</p>
+
 
 <head>
     <title>Car Rental Management</title>
     <link rel="stylesheet" type="text/css" href="{% static 'customer_access/inside.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 </head>
 
-{% block content %}
-<p id="helloname"> Hello {{phoneno}} </p>
-<div class="container">
+<body class="fullback">
 
-    <div id="inhome">
-        <button id="b1" onclick="window.location.href='/reservation'">Make a Reservation</button>
-        <button id="b2" onclick="window.location.href='/view_reservations'">View Reservation</button>
+    <div class="bg">
+
+        <div class="back">
+
+            <div class="container">
+                <div class="name">
+                    <p>Car Rental Management</p>
+                </div>
+               
+
+                {% block content %}
+
+                <p> Hello {{phoneno}} </p>
+                <div class="container">
+
+                    <div id="inhome">
+                        <span>
+                            <button type="button" class="btn btn-secondary" id="b1"
+                                onclick="window.location.href='/reservation'">Make Reservation</button>
+                        </span>
+                        <span>
+                            <button type="button" class="btn btn-secondary" id="b2"
+                                onclick="window.location.href='/view_reservations'">View Reservation</button>
+                        </span>
+
+
+                    </div>
+
+                </div>
+
+
+                {% endblock %}
+
+            </div>
+
+        </div>
+
+
+
     </div>
 
-</div>
 
-
-
-
-{% endblock %}
+</body>

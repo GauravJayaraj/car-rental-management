@@ -1,38 +1,53 @@
 html{
-    /*background-image: url(./signupbackground.jpg);*/
-    background-color: #2b2a33;
-    height: 100%;
-    width: 100%;
-    color: white;
+    background-color: #5691c8;
 }
-.container{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
+
 p{
     text-align: center;
-    font-size: 60px;
-    padding-top: 50px;
+    font-size: 50px;
+}
+
+.bg {
+    /* The image used */
+    
+    background-image: url("./homeback.png");
+    background-color: #5691c8;
+
+    /* Full height */
+    height: 100%;
+    
+    
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+.fullback{
+    background-color: #5691c8;
 }
 #b1,#b2{
-    padding: 10px 20px 10px 20px;
-    margin: 20px;
-    border-radius: 4px;
-    border: none;
+  width: 25%;
+  height: 50px;
+  margin-top: 5%;
+  border: 1px solid;
+  background: #4fa64f;
+  border-radius: 10px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  float: left;
 }
-#inreservation{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    margin-top: 150px;
-    margin-left: 40%;
-    margin-right: 60%;
-    align-items: center;
-    justify-content: center;
-    color: white;
+#b1{
+    margin-left: 24%;
+}
+#b1:hover{
+    background: #249225;
+}
+#b2:hover{
+    background: #249225;
 }
 
