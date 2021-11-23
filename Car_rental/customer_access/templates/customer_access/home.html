@@ -15,25 +15,47 @@
     <div class="bg">
 
         <div class="back">
+            <br><br>
 
             <div class="container">
                 <div class="name">
                     <p>Car Rental Management</p>
                 </div>
-               
+
 
                 {% block content %}
+                <br><br><br><br>
 
                 <p> Hello {{phoneno}} </p>
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="container-fluid p-0">
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                        {{ message }}
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
                 <div class="container">
+                    <br><br><br>
 
                     <div id="inhome">
                         <span>
-                            <button type="button" class="btn btn-secondary" id="b1"
+                            <button style="width: 300px;height: 50px;font-size: 18px;
+                            
+                            font-weight: 700;
+                            cursor: pointer;
+                            outline: none;" type="button" class="btn btn-secondary" id="b1"
                                 onclick="window.location.href='/reservation'">Make Reservation</button>
                         </span>
                         <span>
-                            <button type="button" class="btn btn-secondary" id="b2"
+                            <button style="width: 300px;height: 50px;font-size: 18px;
+                            
+                            font-weight: 700;
+                            cursor: pointer;
+                            outline: none;" type="button" class="btn btn-secondary" id="b2"
                                 onclick="window.location.href='/view_reservations'">View Reservation</button>
                         </span>
 

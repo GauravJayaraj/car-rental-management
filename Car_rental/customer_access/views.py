@@ -56,15 +56,16 @@ class authentication():
                 if row is not None:
                     print(row)
                    
-                    messages.info(request, 'User already exist!! please Signin')
-                    return HttpResponseRedirect('/signup')
-                    #return HttpResponse("<script>alert('User already exists with same Phone no'); window.location='/signup';</script>")
+                    messages.error(request, 'User already exist!! please Signin')
+                    return HttpResponseRedirect('/signin')
+                    #return redirect(HttpResponse("<script>alert('User already exists with same Phone no'); window.location='/signup';</script>"),'/home')
 
                 cur.execute("""INSERT INTO customer (username,password,phone_no) VALUES (%s,%s,%s);""",(username,password,phoneno,))
                 conn.commit()
                 cur.close()
                 conn.close()
                 #return HttpResponse("Inserted Successfully")
+                messages.success(request,'Account created, signin to continue')
                 return redirect('/signin/')
             else:
                 cur.close()
@@ -178,7 +179,9 @@ class customer_view():
                 rows = cur.fetchall()
                 print(rows)
                 if(len(rows) >= 3):
-                    return HttpResponse("Not allowed to have more than 3")
+                    messages.warning(request,"Not allowed to make more than 3 reservation, try again after some time")
+                    #return HttpResponse("Not allowed to have more than 3")
+                    return HttpResponseRedirect("/home")
 
                 query = "SELECT name,location FROM outlet"
                 cur.execute(query)
@@ -272,7 +275,8 @@ class customer_view():
                 
                 plate_no = request.POST.get('plate-no')
                 if(plate_no==None):
-                    return HttpResponse("not vehicle selected")
+                    messages.error(request,"vehicle not selected!!")
+                    return HttpResponseRedirect("/reservation")
                 outlet = request.POST.get('outlet')
                 reservation_date = '2001-12-20'     # Should be date/time of taking reservation
                 reservation_status = 'inprogress'
@@ -303,7 +307,9 @@ class customer_view():
 
                 cur.close()
                 conn.close()
-                return HttpResponse("Inserted reservation success :)")
+                #return HttpResponse("Inserted reservation success :)")
+                messages.info(request, 'Reservation Successful!! check your reservation status in view reservation')
+                return HttpResponseRedirect('/home')
 
             else:
                 return HttpResponse("Sign in pls :(")
