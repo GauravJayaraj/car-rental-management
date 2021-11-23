@@ -131,6 +131,7 @@ class authentication():
     def logout(request):
         try:
             del request.session['phoneno']
+            messages.info(request,"Logged out successfully")
             return redirect('/signin/')
         except:
             print("Logout not Work!!!")
